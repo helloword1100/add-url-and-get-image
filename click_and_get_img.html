@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            color: white;
+            font: 1em sans-serif;
+
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 14vw;
+
+        }
+
+        #img {
+            width: 62vw;
+            height: 15vw;
+            border: 2px solid black;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            margin-top: 3vw;
+        }
+
+        #search {
+            padding: 3px;
+
+            margin-left: -4vw;
+            color: black;
+            background-color: gray;
+            display: flex;
+            border: 1px solid black;
+        }
+
+        #search:hover {
+            background-color: aliceblue;
+        }
+
+        #input {
+            padding: 8px;
+            width: 69vw;
+            border: none;
+            border: 2px solid black;
+            font-size: 12px;
+            text-align: center;
+            color: black;
+        }
+
+
+        #check {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2vw;
+            font-size: 2rem;
+        }
+
+        #pic-div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #input:hover {
+            background-color: rgba(236, 231, 231, 0.884);
+        }
+
+        nav {
+            width: 100vw;
+            height: 8vh;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            color: white;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <h1>IMAGE FINDER</h1>
+    </nav>
+    <div class="container">
+
+        <input type="text" id="input" placeholder="Enter URL of Image">
+        <button id="search">Search</button>
+
+    </div>
+    <div id="check"></div>
+    <div id="pic-div">
+        <div id="img"><img src="" alt="" id="any_url"></div>
+    </div>
+
+</body>
+<script>
+    const img_url = document.getElementById('input');
+    const img_div = document.getElementById('img');
+    const checks = document.getElementById('check');
+    const button = document.getElementById('search');
+    const img_=document.getElementById('any_url');
+    let flag=0;
+
+
+
+    button.addEventListener('click', function () {
+        const check = function (img_url) {
+            const i = img_url.value;
+
+            if (!(i.startsWith('https:') && i.includes('.jpg') || i.includes('.png') || i.includes('jpeg') ||
+                i.includes('png'))) {
+                checks.innerHTML = 'please enter a valid url ⚠️';
+                img_url.value = '';
+                checks.style.color = 'red';
+            }
+            else {
+                
+                checks.innerHTML = 'valid url ✅'
+                checks.style.color = 'green';
+                if(flag===0)
+                {
+                    flag=1;
+                const get_img = function (img_url) {
+                    const create_img = document.createElement('img');
+                    create_img.src = img_url.value;
+                    img_div.appendChild(create_img);
+                    create_img.style.width = '12vw'
+                    //sound player
+                    const sound = new Audio('apple_pay.mp3');
+                    sound.play();
+                }
+                get_img(img_url);
+            }
+            else 
+            {
+                img_url.value = '';
+                img_div.innerHTML = '';
+                flag=0;
+
+            }
+
+            }
+
+        }
+
+        check(img_url)
+
+
+    })
+
+    img_url.addEventListener('click', function () {
+        
+        img_div.innerHTML = '';
+
+    })
+
+
+    let data = window.performance.getEntriesByType("navigation")[0].type;
+    if (data === 'reload') {
+        img_url.value = '';
+    }
+
+
+
+
+
+</script>
+
+</html>
